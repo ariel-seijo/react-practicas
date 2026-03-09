@@ -8,6 +8,9 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingText, setEditingText] = useState("");
+
   const enterTask = (e) => {
     setTask(e.target.value);
   };
@@ -26,6 +29,20 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(list));
   }, [list]);
 
+  const startEdit = (index) => {
+    setEditingIndex(index);
+    setEditingText(list[index]);
+  };
+
+  const saveEdit = () => {
+    setList((prev) =>
+      prev.map((item, index) => (index === editingIndex ? editingText : item)),
+    );
+
+    setEditingIndex(null);
+    setEditingText("");
+  };
+
   return (
     <>
       <h1>LISTA</h1>
@@ -34,8 +51,21 @@ function App() {
       <ul>
         {list.map((item, index) => (
           <li key={index}>
-            {item}
-            <button onClick={() => deleteTask(index)}>delete</button>
+            {editingIndex === index ? (
+              <>
+                <input
+                  value={editingText}
+                  onChange={(e) => setEditingText(e.target.value)}
+                ></input>
+                <button onClick={saveEdit}>save</button>
+              </>
+            ) : (
+              <>
+                {item}
+                <button onClick={() => startEdit(index)}>edit</button>
+                <button onClick={() => deleteTask(index)}>delete</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
