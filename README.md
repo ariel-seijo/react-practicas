@@ -17,6 +17,12 @@ Primer proyecto para practicar `useState`.
 - Reiniciar contador
 - El contador no puede ser menor que 0
 
+**Conceptos practicados:**
+
+- useState
+- Manejo de eventos
+- Actualización de estado
+
 ---
 
 ## 02 - React Toggle
@@ -38,7 +44,7 @@ Mini proyecto para practicar `useState`.
 
 ## 03 - Input Controlado
 
-Mini proyecto para practicar `useState`.
+Mini proyecto para practicar inputs controlados.
 
 **Funciones:**
 
@@ -48,9 +54,9 @@ Mini proyecto para practicar `useState`.
 **Conceptos practicados:**
 
 - useState
-- Manejo de eventos con onChange
+- onChange
 - Inputs controlados
-- Renderizado dinámico basado en estado
+- Renderizado dinámico
 
 ---
 
@@ -61,8 +67,8 @@ Mini proyecto para practicar arrays en estado.
 **Funciones:**
 
 - Input para escribir tareas
-- Botón para agregar tareas a la lista
-- Mostrar todas las tareas ingresadas
+- Botón para agregar tareas
+- Mostrar la lista de tareas
 
 **Conceptos practicados:**
 
@@ -78,8 +84,8 @@ Mejora del proyecto anterior.
 
 **Funciones:**
 
-- Cada tarea tiene botón "Eliminar"
-- Al hacer click, la tarea se elimina de la lista
+- Cada tarea tiene un botón para eliminarla
+- Al hacer click se elimina de la lista
 
 **Conceptos practicados:**
 
@@ -88,87 +94,97 @@ Mejora del proyecto anterior.
 
 ---
 
-## 06 - Contador con useEffect
+## 06 - React Page Title
 
 Mini proyecto para practicar `useEffect`.
 
 **Funciones:**
 
-- Contador que se actualiza con botones
-- Cada vez que cambia el contador, mostrar un mensaje en la consola
+- Un contador que se puede incrementar o decrementar
+- El valor del contador se muestra en el título de la página (`document.title`)
 
 **Conceptos practicados:**
 
 - useEffect
-- Dependencias `[count]`
-- Efectos secundarios
-
----
-
-## 07 - Título Dinámico
-
-Mejora del contador con efectos en el DOM.
-
-**Funciones:**
-
-- El número del contador se muestra en el título del navegador (`document.title`)
-
-**Conceptos practicados:**
-
-- useEffect
+- Dependencias en useEffect
 - Manipulación del DOM desde React
-- Efectos secundarios
 
 ---
 
-## 08 - Fetch de API
+## 07 - React Local Storage
 
-Mini proyecto para consumir datos externos.
+Proyecto para aprender a guardar datos en el navegador.
 
 **Funciones:**
 
-- Traer usuarios desde una API
-- Mostrar la lista de usuarios en pantalla
+- Guardar información en `localStorage`
+- Recuperar información guardada al recargar la página
 
 **Conceptos practicados:**
 
 - useEffect
-- fetch API
-- useState con datos externos
+- localStorage
+- Persistencia de datos
 
 ---
 
-## 09 - Buscador de Usuarios
+## 08 - React Persistent Task List
 
-Mejora del proyecto anterior.
-
-**Funciones:**
-
-- Input que filtra usuarios por nombre
-- Mostrar resultados en tiempo real
-
-**Conceptos practicados:**
-
-- filter
-- Inputs controlados
-- Estado derivado
-
----
-
-## 10 - Mini Proyecto Final: Todo App
-
-Proyecto completo combinando todo lo aprendido.
+Lista de tareas con persistencia.
 
 **Funciones:**
 
 - Agregar tareas
 - Eliminar tareas
-- Marcar tareas como completadas
-- Guardado en `localStorage` para persistencia
+- Guardar automáticamente las tareas en `localStorage`
+- Cargar las tareas al iniciar la aplicación
 
 **Conceptos practicados:**
 
 - useState
 - useEffect
-- Arrays
-- Persistencia en localStorage
+- map
+- filter
+- localStorage
+- JSON.parse / JSON.stringify
+
+---
+
+## 09 - React Edit Tasks
+
+Extensión de la lista de tareas para permitir editar tareas.
+
+**Funciones:**
+
+- Editar el texto de una tarea
+- Convertir la tarea en un input editable
+- Guardar los cambios en la lista
+- Mantener la persistencia en `localStorage`
+
+**Conceptos practicados:**
+
+- Renderizado condicional
+- Actualización de arrays con `map`
+- Manejo de múltiples estados
+- Edición de elementos en listas
+
+---
+
+## 10 - React Todo App
+
+Mini proyecto final combinando todo lo aprendido.
+
+**Funciones:**
+
+- Agregar tareas
+- Eliminar tareas
+- Editar tareas
+- Persistencia con `localStorage`
+
+**Conceptos practicados:**
+
+- useState
+- useEffect
+- Manejo de arrays
+- Renderizado dinámico
+- Persistencia de datos
