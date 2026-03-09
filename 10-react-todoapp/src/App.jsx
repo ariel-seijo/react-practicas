@@ -11,6 +11,8 @@ function App() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingText, setEditingText] = useState("");
 
+  const pendingTasks = list.filter((task) => !task.completed).length;
+
   const enterTask = (e) => {
     setTask(e.target.value);
   };
@@ -56,7 +58,17 @@ function App() {
   return (
     <>
       <h1>LISTA</h1>
-      <input value={task} onChange={enterTask}></input>
+      <input
+        value={task}
+        onChange={enterTask}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            addTask();
+          }
+        }}
+        placeholder="Nueva tarea"
+      />
+      <p>Tareas pendientes: {pendingTasks}</p>
       <button onClick={addTask}>Agregar tarea</button>
       <ul>
         {list.map((item, index) => (
