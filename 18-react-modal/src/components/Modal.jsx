@@ -12,7 +12,7 @@ function Modal({ onClose }) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [onClose]);
   return (
     <div className="overlay" onClick={onClose}>
       <div className="modal" onClick={(event) => event.stopPropagation()}>
