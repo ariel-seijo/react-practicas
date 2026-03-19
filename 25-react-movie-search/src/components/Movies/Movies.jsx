@@ -7,13 +7,15 @@ function Movies() {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
 
-  const handleSearch = (e) => {
+  const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!search.trim()) return;
     setQuery(search.trim());
+    setSearch("");
   };
 
   useEffect(() => {
@@ -21,11 +23,12 @@ function Movies() {
       return;
     }
     setLoading(true);
+    setError(null);
     fetch(`https://www.omdbapi.com/?apikey=85ececc1&s=${query}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.Response === "False") {
-          setError(data.Error);
+          setError("Película no encontrada!");
           setMovies([]);
         } else {
           setMovies(data.Search);
@@ -38,7 +41,9 @@ function Movies() {
       });
   }, [query]);
 
-  if (loading) return <h2>Cargando peliculas...</h2>;
+  {
+    loading && <h2>Cargando...</h2>;
+  }
   if (error) return <h2>{error}</h2>;
 
   return (
@@ -47,7 +52,7 @@ function Movies() {
         <input
           value={search}
           placeholder="batman, avengers, etc"
-          onChange={handleSearch}
+          onChange={handleChange}
         ></input>
         <button type="submit">Buscar</button>
       </form>
@@ -57,7 +62,9 @@ function Movies() {
             <div>
               <h2>{movie.Title}</h2>
               <h4>{movie.Year}</h4>
-              <img src={movie.Poster}></img>
+              {movie.Poster !== "N/A" && (
+                <img src={movie.Poster} alt={movie.Title} />
+              )}
             </div>
           </li>
         ))}
