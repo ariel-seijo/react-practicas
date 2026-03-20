@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./Movies.css";
 
 function Movies() {
   const [movies, setMovies] = useState([]);
@@ -19,57 +20,68 @@ function Movies() {
   };
 
   useEffect(() => {
-    if (!query) {
-      return;
-    }
+    if (!query) return;
+
     setLoading(true);
     setError(null);
+    setMovies([]);
+
     fetch(`https://www.omdbapi.com/?apikey=85ececc1&s=${query}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.Response === "False") {
           setError("Película no encontrada!");
-          setMovies([]);
         } else {
           setMovies(data.Search);
         }
         setLoading(false);
       })
       .catch(() => {
-        setError("Error al cargar las peliculas");
+        setError("Error al cargar las películas");
         setLoading(false);
       });
   }, [query]);
 
-  {
-    loading && <h2>Cargando...</h2>;
-  }
-  if (error) return <h2>{error}</h2>;
-
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="form">
         <input
+          className="input"
           value={search}
           placeholder="batman, avengers, etc"
           onChange={handleChange}
-        ></input>
-        <button type="submit">Buscar</button>
+        />
+        <button className="button" type="submit">
+          Buscar
+        </button>
       </form>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.imdbID}>
-            <div>
-              <h2>{movie.Title}</h2>
-              <h4>{movie.Year}</h4>
-              {movie.Poster !== "N/A" && (
-                <img src={movie.Poster} alt={movie.Title} />
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </>
+
+      {loading && <h2 className="loading">Cargando...</h2>}
+
+      {error && <h2 className="error">{error}</h2>}
+
+      {!loading && !error && movies.length > 0 && (
+        <ul className="movies">
+          {movies.map((movie) => (
+            <li key={movie.imdbID} className="card">
+              <div>
+                <h2>{movie.Title}</h2>
+                <h4>{movie.Year}</h4>
+                {movie.Poster !== "N/A" && (
+                  <img src={movie.Poster} alt={movie.Title} />
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {!loading && !error && movies.length === 0 && query && (
+        <h3 style={{ textAlign: "center", opacity: 0.7 }}>
+          No se encontraron resultados
+        </h3>
+      )}
+    </div>
   );
 }
 
