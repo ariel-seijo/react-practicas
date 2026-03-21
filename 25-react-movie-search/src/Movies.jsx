@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import "./Movies.css";
+import SearchForm from "./components/SearchForm";
+import MovieList from "./components/MovieList";
 
 function Movies() {
   const [movies, setMovies] = useState([]);
@@ -27,7 +28,7 @@ function Movies() {
     setMovies([]);
 
     fetch(`https://www.omdbapi.com/?apikey=85ececc1&s=${query}`)
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
         if (data.Response === "False") {
           setError("Película no encontrada!");
@@ -44,42 +45,25 @@ function Movies() {
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit} className="form">
-        <input
-          className="input"
-          value={search}
-          placeholder="batman, avengers, etc"
-          onChange={handleChange}
-        />
-        <button className="button" type="submit">
-          Buscar
-        </button>
-      </form>
+      <SearchForm
+        search={search}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
 
       {loading && <h2 className="loading">Cargando...</h2>}
-
       {error && <h2 className="error">{error}</h2>}
 
       {!loading && !error && movies.length > 0 && (
-        <ul className="movies">
-          {movies.map((movie) => (
-            <li key={movie.imdbID} className="card">
-              <div>
-                <h2>{movie.Title}</h2>
-                <h4>{movie.Year}</h4>
-                {movie.Poster !== "N/A" && (
-                  <img src={movie.Poster} alt={movie.Title} />
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+        <MovieList movies={movies} />
       )}
 
       {!loading && !error && movies.length === 0 && query && (
-        <h3 style={{ textAlign: "center", opacity: 0.7 }}>
-          No se encontraron resultados
-        </h3>
+        <h3>No se encontraron resultados 😢</h3>
+      )}
+
+      {!loading && !error && movies.length === 0 && !query && (
+        <h3>Buscá una película 👀</h3>
       )}
     </div>
   );

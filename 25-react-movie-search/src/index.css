@@ -1,10 +1,18 @@
-body {
+/* RESET */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
   color: white;
 }
 
+/* CONTENEDOR */
 .container {
   max-width: 1100px;
   margin: auto;
@@ -32,6 +40,7 @@ body {
   box-shadow: 0 0 0 2px #e50914;
 }
 
+/* BOTÓN */
 .button {
   padding: 12px 20px;
   border-radius: 25px;
@@ -48,12 +57,11 @@ body {
   transform: scale(1.05);
 }
 
-/* GRID */
+/* GRID DE PELÍCULAS */
 .movies {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 25px;
-  padding: 0;
   list-style: none;
 }
 
@@ -91,13 +99,40 @@ body {
   color: #aaa;
 }
 
-/* LOADING Y ERROR */
+/* OVERLAY HOVER */
+.card::after {
+  content: "Ver más";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  padding: 10px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* MENSAJES */
 .loading {
   text-align: center;
   color: #f5c518;
+  margin-top: 20px;
 }
 
 .error {
   text-align: center;
   color: #ff4c4c;
+  margin-top: 20px;
+}
+
+/* TEXTOS GENERALES */
+h3 {
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0.7;
 }
