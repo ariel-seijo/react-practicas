@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+  color: white;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.input {
+  padding: 12px 15px;
+  width: 280px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px #e50914;
+}
+
+.button {
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  background: #e50914;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #b20710;
+  transform: scale(1.05);
+}
+
+/* GRID */
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
+  padding: 0;
+  list-style: none;
+}
+
+/* CARD */
+.card {
+  background: #181818;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* IMAGEN */
+.card img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+}
+
+/* TEXTO */
+.card h2 {
+  font-size: 14px;
+  margin: 10px;
+}
+
+.card h4 {
+  font-size: 12px;
+  margin: 0 10px 10px;
+  color: #aaa;
+}
+
+/* LOADING Y ERROR */
+.loading {
+  text-align: center;
+  color: #f5c518;
+}
+
+.error {
+  text-align: center;
+  color: #ff4c4c;
+}
