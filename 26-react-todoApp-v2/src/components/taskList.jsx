@@ -1,38 +1,64 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function TaskList() {
-    const [task, setTask] = useState("");
-    const [taskList, setTaskList] = useState([]);
+  const [task, setTask] = useState("");
+  const [taskList, setTaskList] = useState([]);
 
-    const handleTask = (e) => {
-        setTask([e.target.value]);
-    };
+  const handleTask = (e) => {
+    setTask(e.target.value);
+  };
 
-    const addTask = () => {
-        setTaskList((prev) => [...prev, task]);
-        setTask("");
-    }
+  const addTask = () => {
+    if (!task.trim()) return;
+    const newTask = { id: Date.now(), text: task, completed: false };
+    setTaskList((prev) => [...prev, newTask]);
+    setTask("");
+  };
 
-    const deleteTask = (index) => {
-        setTaskList((prev) => prev.filter((_, i) => i !== index));
-    }
+  const deleteTask = (id) => {
+    setTaskList((prev) => prev.filter((task) => task.id !== id));
+  };
 
-    return(
-        <>
-            <h1>Task List</h1>
+  const toggleTask = (id) => {
+    setTaskList((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
+  };
 
-                <input type="text" value={task} onChange={handleTask} placeholder='Add a new task' />
-                <button type="submit" onClick={addTask}>Add Task</button>
+  return (
+    <>
+      <h1>Task List</h1>
 
-            <ul>
-                {taskList.map((task, index) => (
-                    <li key={index}>{task}
-                    <button onClick={() => deleteTask(index)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </>
-    )
+      <input
+        type="text"
+        value={task}
+        onChange={handleTask}
+        placeholder="Add a new task"
+      />
+      <button type="submit" onClick={addTask}>
+        Add Task
+      </button>
+
+      <ul>
+        {taskList.map((task) => (
+          <li
+            key={task.id}
+            style={{
+              textDecoration: task.completed ? "line-through" : "none",
+            }}
+          >
+            {task.text}
+            <button onClick={() => deleteTask(task.id)}>Delete</button>
+            <button onClick={() => toggleTask(task.id)}>
+              {task.completed ? "Undo" : "Complete"}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 export default TaskList;
