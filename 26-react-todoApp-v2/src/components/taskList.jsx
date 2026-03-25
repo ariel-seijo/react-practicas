@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskItem from "./taskItem";
 import TaskInput from "./taskInput";
 
 function TaskList() {
   const [task, setTask] = useState("");
-  const [taskList, setTaskList] = useState([]);
+  const [taskList, setTaskList] = useState(() => {
+    try {
+      const saved = localStorage.getItem("tasks");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [filter, setFilter] = useState("all");
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
 
   const handleTask = (e) => {
     setTask(e.target.value);
@@ -33,12 +45,27 @@ function TaskList() {
     );
   };
 
+  const filteredTasks =
+    filter === "all"
+      ? taskList
+      : filter === "completed"
+        ? taskList.filter((task) => task.completed)
+        : taskList.filter((task) => !task.completed);
+
+  const completedCount = taskList.filter((task) => task.completed).length;
+
   return (
     <>
       <h1>Task List</h1>
+      <h2>
+        {completedCount}/{taskList.length} tareas completadas
+      </h2>
+      <button onClick={() => setFilter("all")}>All</button>
+      <button onClick={() => setFilter("completed")}>Completed</button>
+      <button onClick={() => setFilter("pending")}>Pending</button>
       <TaskInput task={task} handleTask={handleTask} addTask={addTask} />
       <ul>
-        {taskList.map((task) => (
+        {filteredTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
