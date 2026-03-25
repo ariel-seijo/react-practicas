@@ -10,13 +10,17 @@ function TaskList() {
 
   const addTask = () => {
     if (!task.trim()) return;
-    const newTask = { id: Date.now(), text: task, completed: false };
+    const newTask = {
+      id: Date.now(),
+      text: task,
+      completed: false,
+    };
     setTaskList((prev) => [...prev, newTask]);
     setTask("");
   };
 
   const deleteTask = (id) => {
-    setTaskList((prev) => prev.filter((task) => task.id !== id));
+    setTaskList((prev) => prev.filter((task) => id !== task.id));
   };
 
   const toggleTask = (id) => {
@@ -45,9 +49,7 @@ function TaskList() {
         {taskList.map((task) => (
           <li
             key={task.id}
-            style={{
-              textDecoration: task.completed ? "line-through" : "none",
-            }}
+            style={{ textDecoration: task.completed ? "line-through" : "none" }}
           >
             {task.text}
             <button onClick={() => deleteTask(task.id)}>Delete</button>
