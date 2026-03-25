@@ -1,4 +1,6 @@
 import { useState } from "react";
+import TaskItem from "./taskItem";
+import TaskInput from "./taskInput";
 
 function TaskList() {
   const [task, setTask] = useState("");
@@ -34,29 +36,15 @@ function TaskList() {
   return (
     <>
       <h1>Task List</h1>
-
-      <input
-        type="text"
-        value={task}
-        onChange={handleTask}
-        placeholder="Add a new task"
-      />
-      <button type="submit" onClick={addTask}>
-        Add Task
-      </button>
-
+      <TaskInput task={task} handleTask={handleTask} addTask={addTask} />
       <ul>
         {taskList.map((task) => (
-          <li
+          <TaskItem
             key={task.id}
-            style={{ textDecoration: task.completed ? "line-through" : "none" }}
-          >
-            {task.text}
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
-            <button onClick={() => toggleTask(task.id)}>
-              {task.completed ? "Undo" : "Complete"}
-            </button>
-          </li>
+            task={task}
+            deleteTask={deleteTask}
+            toggleTask={toggleTask}
+          />
         ))}
       </ul>
     </>
